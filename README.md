@@ -14,11 +14,7 @@ Make Anki flashcards from (KaTrain) goban positions
 6. alt-tab to Flash-Goban and click "make flashcard"
 7. A flashcard is made where the front of the flashcard is the game position with no move analysis and the back of the flashcard is the game position with move analysis
 
-# Related Work
 
-## OGS Buddy
-
-Make Anki flashcards from Online-Go.com goban positions - https://github.com/metaperl/ogs-buddy
 
 # Installation
 
@@ -26,9 +22,11 @@ Make Anki flashcards from Online-Go.com goban positions - https://github.com/met
 
 https://apps.ankiweb.net/
 
-### Download and install Anki-connect
+### Download and install the Anki plugin Anki-connect
 
 https://github.com/FooSoft/anki-connect#installation
+
+BE AWARE: this opens up port 8765 on your local machine. I know of no security issues but CAVEAT EMPTOR.
 
 ## Clone this repo
 
@@ -37,12 +35,14 @@ https://github.com/FooSoft/anki-connect#installation
 # Usage
 
 1. Open a shell
-2. Set your `PYTHONPATH` to the ogs-buddy cloned repo
-3. change directory to the ogs-buddy cloned repo
-4. type `python bin\main.py` to start up OGS Buddy
-5. Startup the Anki flashcard software
-6. Play a game in the browser window after logging in. Or alternatively browse to any game and then let the AI review it.
-7. When you see a position you want to remember, click "Make Flashcard". Remember: you click "make flashcard' when the screen is showing the analysis
+2. Startup the Anki flashcard software
+3. Set your `PYTHONPATH` to `.`
+4. change directory to the flash-goban cloned repo
+5. type `python main.py` to start up Flash Goban
+6. Review a game in KaTrain
+7. When you see a position you want to remember, ALT-TAB to Flash-Goban and click "Make Flashcard". You alt-tab and click "make flashcard' when the screen is showing the analysis
+
+
 
 # FAQ
 
@@ -50,3 +50,8 @@ https://github.com/FooSoft/anki-connect#installation
 
 It actually was impossible as I discuss in [the FAQ for OGS Buddy](https://github.com/metaperl/ogs-buddy#faq).
 
+# Related Work
+
+## OGS Buddy
+
+Make Anki flashcards from Online-Go.com goban positions - https://github.com/metaperl/ogs-buddy
