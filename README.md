@@ -7,11 +7,12 @@ Make Anki flashcards from (KaTrain) goban positions
 
 # How does it work?
 
-1. Open up a game in KaTrain
-2. Open up Anki (after proper installation, see below)
-3. Scroll through until you see a position where you could've done much better
-4. Click "make flashcard"
-5. A flashcard is made where the front is the game position with no move analysis and the back is the game position with move analysis
+1. Open up Anki (after proper installation, see below)
+2. Open up Flash-Goban
+3. Open up a game in KaTrain
+5. Scroll through until you see a position where you could've done much better
+6. alt-tab to Flash-Goban and click "make flashcard"
+7. A flashcard is made where the front is the game position with no move analysis and the back is the game position with move analysis
 
 # Related Work
 
