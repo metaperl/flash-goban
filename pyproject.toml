@@ -8,6 +8,11 @@ packages = [{include = "flash_goban"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+PyAutoGUI = "^0.9.53"
+loguru = "^0.6.0"
+traitlets = "^5.4.0"
+Pillow = "^9.2.0"
+opencv-python = "^4.6.0.66"
 
 
 [build-system]
