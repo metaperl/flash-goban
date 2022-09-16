@@ -2,7 +2,7 @@
 
 Make Anki flashcards from (KaTrain) goban positions
 
-![flash-goban3](https://user-images.githubusercontent.com/21293/190809993-fc1ba30c-662a-4da5-b430-18449139f3f2.png)
+![flash-goban4](https://user-images.githubusercontent.com/21293/190810634-b885e3a0-af1a-44e9-a2b1-f1018db7dc90.png)
 
 
 # How does it work?
