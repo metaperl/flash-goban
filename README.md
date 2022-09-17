@@ -14,7 +14,7 @@ Make Anki flashcards from (KaTrain) goban positions
 6. alt-tab to Flash-Goban and click "make flashcard"
 7. A flashcard is made where the front of the flashcard is the game position with no move analysis and the back of the flashcard is the game position with move analysis
 
-
+[![Watch the video]()](https://youtu.be/4B0VT44Aof4)
 
 # Installation
 
