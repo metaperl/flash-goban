@@ -11,11 +11,10 @@ here is a video example -
 https://youtu.be/4B0VT44Aof4
 
 1. Open up Anki (after proper installation, see below)
-2. Open up Flash-Goban
-3. Open up a game in KaTrain
-5. Scroll through until you see a position where you could've done much better
-6. alt-tab to Flash-Goban and click "make flashcard"
-7. A flashcard is made where the front of the flashcard is the game position with no move analysis and the back of the flashcard is the game position with move analysis
+1. Open up a game in KaTrain
+1. Scroll through until you see a position where you could've done much better
+1. invoke Flash-Goban 
+1. A flashcard is made where the front of the flashcard is the game position with no move analysis and the back of the flashcard is the game position with move analysis
 
 
 # Installation
@@ -34,15 +33,24 @@ BE AWARE: this opens up port 8765 on your local machine. I know of no security i
 
 ## Install Python on your machine
 
+On Windows, I prefer to use Python from the Microsoft store.
+
+## Sound Effects
+
+you may not be able to get the camera sound effects (made when taking screenshots) to work on your platform.
+
+if so, set  `SOUND_EFFECTS` to `False` to turn them off. 
+
 # Usage
 
-1. Open a shell
+1. Set your `PYTHONPATH` to `.`. Ideally you would do this in your environment settings once.
 2. Startup the Anki flashcard software
-3. Set your `PYTHONPATH` to `.`
+3. Open up a shell
 4. change directory to the flash-goban cloned repo
-5. type `python main.py` to start up Flash Goban
-6. Review a game in KaTrain
-7. When you see a position you want to remember, ALT-TAB to Flash-Goban and click "Make Flashcard". You alt-tab and click "make flashcard' when the screen is showing the analysis
+5. Review a game in KaTrain
+5. When you see a position you want to remember, ALT-TAB to Flash-Goban and click "Make Flashcard". You alt-tab and click "make flashcard' when the screen is showing the analysis
+6. type `python main.py` to start up Flash Goban
+
 
 
 

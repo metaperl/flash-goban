@@ -5,6 +5,7 @@ from weakref import finalize
 
 import tempfile
 
+import os
 import os.path
 import sys
 import traceback
@@ -13,7 +14,7 @@ import time
 from loguru import logger
 import flash_goban.anki_connect
 
-
+import random
 
 from traitlets import HasTraits, Int, Unicode, default, Any    
 from traitlets.config import Application
@@ -23,10 +24,25 @@ import pyautogui
 pyautogui.PAUSE = 0.2
 
 
+SOUND_EFFECTS = True
 DECK_NAME = 'flash-goban'
-TEMP_DIR = tempfile.mkdtemp(prefix='flashcard-images', dir='.')
+TEMP_DIR = Path(tempfile.mkdtemp(prefix='flashcard-images'))
+
 logger.debug(f"{TEMP_DIR=}")
 
+
+def play_camera_sound():
+    if SOUND_EFFECTS:
+        from playsound import playsound
+
+        sounds = """camera-shutter-click-01 camera-shutter-click-03
+            camera-shutter-click-08 shutter-40453
+            camera-shutter-pentax-k20d-38609
+            analog-camera-shutter-96604
+            """.split()
+        sound = random.choice(sounds) + '.mp3'
+        playsound(sound)
+        time.sleep(1)
 
 def filename_from_url(url, append=None):
     parts = url.split("/")
@@ -63,7 +79,6 @@ class UserData(HasTraits):
 class UserInterface(HasTraits):
     '''The user's desktop.'''
 
-    screenshot_count = Int()
 
     def alt_tab(self):
         pyautogui.keyDown('alt')
@@ -92,6 +107,14 @@ class UserInterface(HasTraits):
             )
             sys.exit()
 
+
+
+    def take_screenshot(self, filename):
+
+        pyautogui.screenshot(filename)
+        play_camera_sound()
+        
+
     def make_flashcard(self):
         card = {
             'front': {
@@ -106,15 +129,18 @@ class UserInterface(HasTraits):
 
         for side in "front back".split():
 
-            tmp_name = f'{self.screenshot_count}-{side}.png'
-            self.screenshot_count += 1
-            _ = os.path.join(TEMP_DIR, tmp_name)
+            tmp_name = f'{side}.png'
+            _ = TEMP_DIR / tmp_name
             card[side]['image'] = _
  
             logger.debug(_)
-            pyautogui.screenshot(_)
+            self.take_screenshot(_)
             self.toggle_ai()
 
+        try:
+            os.sync()
+        except AttributeError:
+            time.sleep(2)
 
         logger.debug(f"The extracted and generated {card=}   ")
 

@@ -2,8 +2,8 @@ import json
 from operator import inv
 import urllib.request
 from loguru import logger
-import os.path
-
+import pathlib
+import sys
 
 def request(action, **params):
     return {'action': action, 'params': params, 'version': 6}
@@ -22,9 +22,13 @@ def invoke(action, **params):
     return response
 
 def create_deck(deck_name):
-    invoke('createDeck', deck=deck_name)
-    result = invoke('deckNames')
-    print('got list of decks: {}'.format(result))
+    try:
+        invoke('createDeck', deck=deck_name)
+        result = invoke('deckNames')
+        print('got list of decks: {}'.format(result))
+    except urllib.error.URLError:
+        logger.error("Anki is not started... or Anki-connect is not installed.")
+        sys.exit(255)
 
 def make_card(deck_name, front_text, back_text, front_image, back_image):
     parms = {
@@ -45,19 +49,19 @@ def make_card(deck_name, front_text, back_text, front_image, back_image):
                 }
             },
             "tags": [
-                "ogs-buddy-tag"
+                "flash-goban-tag"
             ],
             "picture": [
                 {
-                "path": front_image,
-                "filename": os.path.basename(front_image),
+                "path": str(front_image.resolve()),
+                "filename": front_image.name,
                 "fields": [
                     "Front"
                 ]
                 },
                 {
-                "path": back_image,
-                "filename": os.path.basename(back_image),
+                "path": str(back_image.resolve()),
+                "filename": back_image.name,
                 "fields": [
                     "Back"
                 ]

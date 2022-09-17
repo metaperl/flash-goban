@@ -13,6 +13,10 @@ loguru = "^0.6.0"
 traitlets = "^5.4.0"
 Pillow = "^9.2.0"
 opencv-python = "^4.6.0.66"
+pydub = "^0.25.1"
+ffmpeg = "^1.4"
+simpleaudio = "^1.0.4"
+playsound = "1.2.2"
 
 
 [build-system]
