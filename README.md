@@ -7,6 +7,9 @@ Make Anki flashcards from (KaTrain) goban positions
 
 # How does it work?
 
+here is a video example - 
+https://youtu.be/4B0VT44Aof4
+
 1. Open up Anki (after proper installation, see below)
 2. Open up Flash-Goban
 3. Open up a game in KaTrain
@@ -14,7 +17,6 @@ Make Anki flashcards from (KaTrain) goban positions
 6. alt-tab to Flash-Goban and click "make flashcard"
 7. A flashcard is made where the front of the flashcard is the game position with no move analysis and the back of the flashcard is the game position with move analysis
 
-[![Watch the video](http://i.imgur.com/YcpmSBx.png)](https://youtu.be/4B0VT44Aof4)
 
 # Installation
 
