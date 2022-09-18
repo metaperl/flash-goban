@@ -31,6 +31,19 @@ TEMP_DIR = Path(tempfile.mkdtemp(prefix='flashcard-images'))
 logger.debug(f"{TEMP_DIR=}")
 
 
+def play_reflect():
+    if SOUND_EFFECTS:
+        from playsound import playsound
+
+        # sounds = """camera-shutter-click-01 camera-shutter-click-03
+        #     camera-shutter-click-08 shutter-40453
+        #     camera-shutter-pentax-k20d-38609
+        #     analog-camera-shutter-96604
+        #     """.split()
+        sound = 'angel-reveal.wav'
+        playsound(sound)
+        time.sleep(5)
+
 def play_camera_sound():
     if SOUND_EFFECTS:
         from playsound import playsound
@@ -128,6 +141,9 @@ class UserInterface(HasTraits):
         }
 
         for side in "front back".split():
+
+            if side == 'back':
+                play_reflect()
 
             tmp_name = f'{side}.png'
             _ = TEMP_DIR / tmp_name
