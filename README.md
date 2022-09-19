@@ -41,6 +41,10 @@ you may not be able to get the camera sound effects (made when taking screenshot
 
 if so, set  `SOUND_EFFECTS` to `False` to turn them off. 
 
+# Optional: build an executable
+
+
+
 # Usage
 
 1. Set your `PYTHONPATH` to `.`. Ideally you would do this in your environment settings once.
