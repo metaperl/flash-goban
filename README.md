@@ -43,7 +43,18 @@ if so, set  `SOUND_EFFECTS` to `False` to turn them off.
 
 # Optional: build an executable
 
+you may get tired of opening up a command shell, cd'ing to the repo and then invoking `python main.py` all the time.
 
+in this case, you can create an executable as follows:
+
+    pip install pyinstaller
+    pyinstaller make-exe.spec
+
+Then you will find an executable in `$repo/dist/main` that you can put a shortcut on your desktop to so that you can invoke in one-click.
+
+Because flash-goban finds the kaTrain window by using Alt-TAB, just make sure to have the katrain window up when you click on the icon for your executable.
+
+here is a video of using the executable: https://youtu.be/tr42FXu1pe8
 
 # Usage
 
