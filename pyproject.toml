@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "flash_goban"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.10"
 PyAutoGUI = "^0.9.53"
 loguru = "^0.6.0"
 traitlets = "^5.4.0"

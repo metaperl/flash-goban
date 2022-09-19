@@ -30,6 +30,9 @@ TEMP_DIR = Path(tempfile.mkdtemp(prefix='flashcard-images'))
 
 logger.debug(f"{TEMP_DIR=}")
 
+sound_path = Path('sounds')
+image_path = Path('images')
+
 
 def play_reflect():
     if SOUND_EFFECTS:
@@ -40,8 +43,8 @@ def play_reflect():
         #     camera-shutter-pentax-k20d-38609
         #     analog-camera-shutter-96604
         #     """.split()
-        sound = 'angel-reveal.wav'
-        playsound(sound)
+        sound = sound_path / 'angel-reveal.wav'
+        playsound(str(sound))
         time.sleep(5)
 
 def play_camera_sound():
@@ -53,8 +56,8 @@ def play_camera_sound():
             camera-shutter-pentax-k20d-38609
             analog-camera-shutter-96604
             """.split()
-        sound = random.choice(sounds) + '.mp3'
-        playsound(sound)
+        sound = sound_path / (random.choice(sounds) + '.mp3')
+        playsound(str(sound))
         time.sleep(1)
 
 def filename_from_url(url, append=None):
@@ -102,7 +105,8 @@ class UserInterface(HasTraits):
     def toggle_ai(self):
         # pressing 'e' does not work!
         # pyautogui.press('e')
-        x, y = pyautogui.locateCenterOnScreen('top-moves.png', confidence=0.75)
+        top_moves = image_path / 'top-moves.png'
+        x, y = pyautogui.locateCenterOnScreen(str(top_moves), confidence=0.75)
         # logger.debug(f"located top moves at {top_left=}")
 
         pyautogui.click(x, y)
@@ -118,7 +122,6 @@ class UserInterface(HasTraits):
 
                 """
             )
-            sys.exit()
 
 
 
@@ -156,7 +159,7 @@ class UserInterface(HasTraits):
         try:
             os.sync()
         except AttributeError:
-            time.sleep(2)
+            time.sleep(1)
 
         logger.debug(f"The extracted and generated {card=}   ")
 
