@@ -102,12 +102,16 @@ class UserInterface(HasTraits):
         time.sleep(0.2)
         pyautogui.keyUp('alt')
 
-    def toggle_ai(self):
+    def toggle_ai(self, checked):
         # pressing 'e' does not work!
         # pyautogui.press('e')
-        top_moves = image_path / 'top-moves.png'
+        file_name = {
+            False: 'top-moves.png',
+            True: 'top-moves-checked.png'
+        }
+        top_moves = image_path / file_name[checked]
         x, y = pyautogui.locateCenterOnScreen(str(top_moves), confidence=0.75)
-        # logger.debug(f"located top moves at {top_left=}")
+        logger.debug(f"located top moves at {x},{y}")
 
         pyautogui.click(x, y)
 
@@ -143,10 +147,7 @@ class UserInterface(HasTraits):
             }
         }
 
-        for side in "front back".split():
-
-            if side == 'back':
-                play_reflect()
+        for i, side in enumerate("front back".split()):
 
             tmp_name = f'{side}.png'
             _ = TEMP_DIR / tmp_name
@@ -154,7 +155,7 @@ class UserInterface(HasTraits):
  
             logger.debug(_)
             self.take_screenshot(_)
-            self.toggle_ai()
+            self.toggle_ai(checked=i)
 
         try:
             os.sync()
@@ -170,6 +171,8 @@ class UserInterface(HasTraits):
             card['front']['image'],
             card['back']['image']
         )
+
+        play_reflect()
              
 
 class FlashGoban(Application):
