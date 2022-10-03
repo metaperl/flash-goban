@@ -186,8 +186,12 @@ class FlashGoban(Application):
         self.ui.make_flashcard()
         self.ui.alt_tab()
 
+
+def cli() -> None:
+    FlashGoban.launch_instance()
  
 
 if __name__ == '__main__':
-    FlashGoban.launch_instance()
+    cli()
+
     

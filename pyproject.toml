@@ -18,6 +18,8 @@ ffmpeg = "^1.4"
 simpleaudio = "^1.0.4"
 playsound = "1.2.2"
 
+[tool.poetry.scripts]
+flash-goban = "flash_goban.main:cli"
 
 [build-system]
 requires = ["poetry-core"]
