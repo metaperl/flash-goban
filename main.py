@@ -156,7 +156,7 @@ class UserInterface(HasTraits):
         try:
             os.sync()
         except AttributeError:
-            time.sleep(1)
+            time.sleep(0.2)
 
         logger.debug(f"The extracted and generated {card=}   ")
 
