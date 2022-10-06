@@ -2,7 +2,6 @@
 from lib2to3.pgen2 import driver
 from weakref import finalize
 
-
 import tempfile
 
 import os
@@ -16,13 +15,13 @@ import flash_goban.anki_connect
 
 import random
 
-from traitlets import HasTraits, Int, Unicode, default, Any    
+from traitlets import HasTraits, Int, Unicode, default, Any
 from traitlets.config import Application
 from pathlib import Path
 
 import pyautogui
-pyautogui.PAUSE = 0.2
 
+pyautogui.PAUSE = 0.2
 
 SOUND_EFFECTS = True
 DECK_NAME = 'flash-goban'
@@ -45,7 +44,7 @@ def play_reflect():
         #     """.split()
         sound = sound_path / 'angel-reveal.wav'
         playsound(str(sound))
-        time.sleep(5)
+
 
 def play_camera_sound():
     if SOUND_EFFECTS:
@@ -58,7 +57,7 @@ def play_camera_sound():
             """.split()
         sound = sound_path / (random.choice(sounds) + '.mp3')
         playsound(str(sound))
-        time.sleep(1)
+
 
 def filename_from_url(url, append=None):
     parts = url.split("/")
@@ -81,20 +80,26 @@ def filename_from_url(url, append=None):
 
     return filename
 
-class UserData(HasTraits):
 
+class UserData(HasTraits):
     home = Path(Path.home())
     user_dir = Path()
 
-    @default('user_dir')    
+    @default('user_dir')
     def _user_dir(self):
         _ = self.home / ("." + DECK_NAME)
         _.mkdir(exist_ok=True)
         return _
 
+
+def take_screenshot(filename):
+
+    pyautogui.screenshot(filename)
+    play_camera_sound()
+
+
 class UserInterface(HasTraits):
     '''The user's desktop.'''
-
 
     def alt_tab(self):
         pyautogui.keyDown('alt')
@@ -125,15 +130,7 @@ class UserInterface(HasTraits):
                 2. Have you installed the Anki-connect Flashcard plugin?
 
                 """
-            )
-
-
-
-    def take_screenshot(self, filename):
-
-        pyautogui.screenshot(filename)
-        play_camera_sound()
-        
+                             )
 
     def make_flashcard(self):
         card = {
@@ -143,18 +140,17 @@ class UserInterface(HasTraits):
             },
             'back': {
                 'text': '? ',
-                 'image': '',
+                'image': '',
             }
         }
 
         for i, side in enumerate("front back".split()):
-
             tmp_name = f'{side}.png'
             _ = TEMP_DIR / tmp_name
             card[side]['image'] = _
- 
+
             logger.debug(_)
-            self.take_screenshot(_)
+            take_screenshot(_)
             self.toggle_ai(checked=i)
 
         try:
@@ -173,7 +169,7 @@ class UserInterface(HasTraits):
         )
 
         play_reflect()
-             
+
 
 class FlashGoban(Application):
     """Tool that makes a flashcard of a Go position in KaTrain."""
@@ -184,14 +180,11 @@ class FlashGoban(Application):
         self.ui.create_deck()
         self.ui.alt_tab()
         self.ui.make_flashcard()
-        self.ui.alt_tab()
 
 
 def cli() -> None:
     FlashGoban.launch_instance()
- 
+
 
 if __name__ == '__main__':
     cli()
-
-    
