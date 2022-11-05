@@ -26,12 +26,27 @@ pyautogui.PAUSE = 0.2
 SOUND_EFFECTS = True
 DECK_NAME = 'flash-goban'
 TEMP_DIR = Path(tempfile.mkdtemp(prefix='flashcard-images'))
+SECONDS_FOR_COMPLETION_NOTIFICATION = 3
 
 logger.debug(f"{TEMP_DIR=}")
 
 sound_path = Path('sounds')
 image_path = Path('images')
 
+
+
+
+def notify_completion():
+    import pymsgbox
+
+    milliseconds = SECONDS_FOR_COMPLETION_NOTIFICATION * 1000
+
+    pymsgbox.alert("""Flashcard created.
+    
+    You are now 1 step closer to 1 dan.
+    
+    You may now continue your study.
+    """, timeout=milliseconds)
 
 def play_reflect():
     if SOUND_EFFECTS:
@@ -107,7 +122,7 @@ class UserInterface(HasTraits):
         time.sleep(0.2)
         pyautogui.keyUp('alt')
 
-    def toggle_ai_by_key(self, checked):
+    def toggle_ai_by_key(self):
         # pressing 'e' does not work!
         # pyautogui.press('e')
         time.sleep(1)
@@ -115,14 +130,11 @@ class UserInterface(HasTraits):
         pyautogui.press('e')
         logger.debug("we pressed 'e'!")
 
-    def toggle_ai(self, checked):
+    def toggle_ai(self):
 
-        file_name = {
-            False: 'top-moves.png',
-            True: 'top-moves-checked.png'
-        }
-        top_moves = image_path / file_name[checked]
-        x, y = pyautogui.locateCenterOnScreen(str(top_moves), confidence=0.5)
+        file_name = 'top-moves.png'
+        top_moves = image_path / file_name
+        x, y = pyautogui.locateCenterOnScreen(str(top_moves), confidence=0.75)
         logger.debug(f"located top moves at {x},{y}")
 
         pyautogui.click(x, y)
@@ -158,8 +170,8 @@ class UserInterface(HasTraits):
 
             logger.debug(_)
             take_screenshot(_)
-            self.toggle_ai(checked=i)
-            # self.toggle_ai_by_key(checked=i)
+            self.toggle_ai()
+            # self.toggle_ai_by_key()
 
         try:
             os.sync()
@@ -176,6 +188,7 @@ class UserInterface(HasTraits):
             card['back']['image']
         )
 
+        notify_completion()
         play_reflect()
 
 
