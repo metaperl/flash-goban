@@ -42,7 +42,7 @@ def play_reflect():
         #     camera-shutter-pentax-k20d-38609
         #     analog-camera-shutter-96604
         #     """.split()
-        sound = sound_path / 'angel-reveal.wav'
+        sound = sound_path / '177872__jorickhoofd__heavy-gong.wav'
         playsound(str(sound))
 
 
@@ -107,15 +107,22 @@ class UserInterface(HasTraits):
         time.sleep(0.2)
         pyautogui.keyUp('alt')
 
-    def toggle_ai(self, checked):
+    def toggle_ai_by_key(self, checked):
         # pressing 'e' does not work!
         # pyautogui.press('e')
+        time.sleep(1)
+        logger.debug("we are pressing 'e'")
+        pyautogui.press('e')
+        logger.debug("we pressed 'e'!")
+
+    def toggle_ai(self, checked):
+
         file_name = {
             False: 'top-moves.png',
             True: 'top-moves-checked.png'
         }
         top_moves = image_path / file_name[checked]
-        x, y = pyautogui.locateCenterOnScreen(str(top_moves), confidence=0.75)
+        x, y = pyautogui.locateCenterOnScreen(str(top_moves), confidence=0.5)
         logger.debug(f"located top moves at {x},{y}")
 
         pyautogui.click(x, y)
@@ -152,11 +159,12 @@ class UserInterface(HasTraits):
             logger.debug(_)
             take_screenshot(_)
             self.toggle_ai(checked=i)
+            # self.toggle_ai_by_key(checked=i)
 
         try:
             os.sync()
         except AttributeError:
-            time.sleep(0.2)
+            pass
 
         logger.debug(f"The extracted and generated {card=}   ")
 

@@ -33,7 +33,8 @@ BE AWARE: this opens up port 8765 on your local machine. I know of no security i
 
 ## Install Python on your machine
 
-On Windows, I prefer to use Python from the Microsoft store.
+On Windows, I prefer to use [Python from the Python software foundation](https://www.python.org/). 
+I had a brief run with Python from the Windows store as well as Chocolatey but neither worked so well.
 
 ## Sound Effects
 
@@ -66,6 +67,10 @@ here is a video of using the executable: https://youtu.be/tr42FXu1pe8
 5. When you see a position you want to remember, ALT-TAB to Flash-Goban and click "Make Flashcard". You alt-tab and click "make flashcard' when the screen is showing the analysis
 6. type `python main.py` to start up Flash Goban
 
+
+# Developer Guide
+
+## How to create the executable
 
 
 
