@@ -43,9 +43,11 @@ def notify_completion():
 
     pymsgbox.alert("""Flashcard created.
     
-    You are now 1 step closer to 1 dan.
+    You are now a step closer to 1 dan!
     
-    You may now continue your study.
+    Play. Review. Flash-goban. This is the path to shodan.
+    
+    Continue your study!
     """, timeout=milliseconds)
 
 def play_reflect():
