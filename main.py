@@ -1,27 +1,21 @@
 # importing webdriver from selenium
-from lib2to3.pgen2 import driver
-from weakref import finalize
-
-import tempfile
 
 import os
 import os.path
-import sys
-import traceback
-
-import time
-from loguru import logger
-import flash_goban.anki_connect
-
 import random
-
-from traitlets import HasTraits, Int, Unicode, default, Any
-from traitlets.config import Application
+import sys
+import tempfile
+import time
 from pathlib import Path
 
 import pyautogui
-import pyperclip
 import pymsgbox
+import pyperclip
+from loguru import logger
+from traitlets import HasTraits, default
+from traitlets.config import Application
+
+import flash_goban.anki_connect
 
 pyautogui.PAUSE = 0.2
 
@@ -34,8 +28,6 @@ logger.debug(f"{TEMP_DIR=}")
 
 sound_path = Path('sounds')
 image_path = Path('images')
-
-
 
 
 def notify_completion():
@@ -52,6 +44,7 @@ def notify_completion():
     Continue your study!
     """, timeout=milliseconds)
 
+
 def play_reflect():
     if SOUND_EFFECTS:
         from playsound import playsound
@@ -63,7 +56,6 @@ def play_reflect():
         #     """.split()
         sound = sound_path / '177872__jorickhoofd__heavy-gong.wav'
         playsound(str(sound))
-
 
 
 def _playsound(filename):
@@ -120,9 +112,9 @@ class UserData(HasTraits):
 
 
 def take_screenshot(filename):
-
     pyautogui.screenshot(filename)
     play_camera_sound()
+
 
 def perhaps_record_game_url(card):
     """Examine clipboard and potentially add it to the flashcard.
@@ -143,6 +135,7 @@ def perhaps_record_game_url(card):
             sound_file = 'zapsplat_technology_cb_radio_male_says_abort_speaker_pov_57190.mp3'
             _playsound(sound_file)
             sys.exit(255)
+
 
 class UserInterface(HasTraits):
     '''The user's desktop.'''
@@ -193,7 +186,6 @@ class UserInterface(HasTraits):
                 'image': '',
             }
         }
-
 
         perhaps_record_game_url(card)
 
