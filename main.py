@@ -20,6 +20,8 @@ from traitlets.config import Application
 from pathlib import Path
 
 import pyautogui
+import pyperclip
+import pymsgbox
 
 pyautogui.PAUSE = 0.2
 
@@ -60,6 +62,14 @@ def play_reflect():
         #     analog-camera-shutter-96604
         #     """.split()
         sound = sound_path / '177872__jorickhoofd__heavy-gong.wav'
+        playsound(str(sound))
+
+
+
+def _playsound(filename):
+    if SOUND_EFFECTS:
+        from playsound import playsound
+        sound = sound_path / filename
         playsound(str(sound))
 
 
@@ -114,6 +124,25 @@ def take_screenshot(filename):
     pyautogui.screenshot(filename)
     play_camera_sound()
 
+def perhaps_record_game_url(card):
+    """Examine clipboard and potentially add it to the flashcard.
+
+    If the clipboard text looks like a game URL, then ask the user if he wants it on the front/back of the card
+    (so you can go download the game and review it).
+    """
+
+    clipboard_text = pyperclip.paste()
+    logger.debug(f"clipboard text={clipboard_text}")
+    if clipboard_text.startswith('http'):
+        confirm_message = f"""Should the flashcard indicate that
+        this game position came from {clipboard_text}?"""
+        response = pymsgbox.confirm(text=confirm_message, buttons='yes no abort'.split())
+        if response == 'yes':
+            card['back']['text'] == clipboard_text
+        if response == 'abort':
+            sound_file = 'zapsplat_technology_cb_radio_male_says_abort_speaker_pov_57190.mp3'
+            _playsound(sound_file)
+            sys.exit(255)
 
 class UserInterface(HasTraits):
     '''The user's desktop.'''
@@ -164,6 +193,9 @@ class UserInterface(HasTraits):
                 'image': '',
             }
         }
+
+
+        perhaps_record_game_url(card)
 
         for i, side in enumerate("front back".split()):
             tmp_name = f'{side}.png'

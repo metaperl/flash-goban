@@ -17,6 +17,8 @@ pydub = "^0.25.1"
 ffmpeg = "^1.4"
 playsound = "1.2.2"
 tenacity = "^8.1.0"
+pyperclip = "^1.8.2"
+pymsgbox = "^1.0.9"
 
 [tool.poetry.scripts]
 flash-goban = "flash_goban.main:cli"

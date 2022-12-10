@@ -85,3 +85,8 @@ It actually was impossible as I discuss in [the FAQ for OGS Buddy](https://githu
 ## OGS Buddy
 
 Make Anki flashcards from Online-Go.com goban positions - https://github.com/metaperl/ogs-buddy
+
+# Acknowledgements
+
+"Abort sound" came from Zapsplat.com
+
