@@ -15,7 +15,7 @@ https://youtu.be/4B0VT44Aof4
 1. Scroll through until you see a position where you could've done much better
 1. invoke Flash-Goban 
 1. A flashcard is made where the front of the flashcard is the game position with no move analysis and the back of the flashcard is the game position with move analysis
-
+1. **NOTE WELL**: If a URL is on the clipboard, then it will be added to the back of the flashcard....
 
 # Installation
 
@@ -63,9 +63,10 @@ here is a video of using the executable: https://youtu.be/tr42FXu1pe8
 2. Startup the Anki flashcard software
 3. Open up a shell
 4. change directory to the flash-goban cloned repo
-5. Review a game in KaTrain
-5. When you see a position you want to remember, ALT-TAB to Flash-Goban and click "Make Flashcard". You alt-tab and click "make flashcard' when the screen is showing the analysis
-6. type `python main.py` to start up Flash Goban
+5. Review a game in KaTrain, optionally copying the URL of the game to the clipboard
+(so it will be added to the back of the card so you can find the game later.)
+5. When you see a position you want to remember, ALT-TAB to Flash-Goban and invoke it... flash-goban will take a picture
+without analysis and with analysis **and add the URL on the clipboard to the back of the card.**
 
 
 # Developer Guide

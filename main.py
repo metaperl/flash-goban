@@ -29,20 +29,21 @@ logger.debug(f"{TEMP_DIR=}")
 sound_path = Path('sounds')
 image_path = Path('images')
 
+alert_milliseconds = SECONDS_FOR_COMPLETION_NOTIFICATION * 1000
+GAME_URL = None
 
 def notify_completion():
     import pymsgbox
 
-    milliseconds = SECONDS_FOR_COMPLETION_NOTIFICATION * 1000
 
-    pymsgbox.alert("""Flashcard created.
+    pymsgbox.alert(f"""Flashcard created ({GAME_URL})
     
     You are now a step closer to 1 dan!
     
     Play. Review. Flash-goban. This is the path to shodan.
     
     Continue your study!
-    """, timeout=milliseconds)
+    """, timeout=alert_milliseconds)
 
 
 def play_reflect():
@@ -123,19 +124,13 @@ def perhaps_record_game_url(card):
     (so you can go download the game and review it).
     """
 
+    global GAME_URL
+
     clipboard_text = pyperclip.paste()
     logger.debug(f"clipboard text={clipboard_text}")
     if clipboard_text.startswith('http'):
-        confirm_message = f"""Should the flashcard indicate that
-        this game position came from {clipboard_text}?"""
-        response = pymsgbox.confirm(text=confirm_message, buttons='yes no abort'.split())
-        if response == 'yes':
-            card['back']['text'] == clipboard_text
-        if response == 'abort':
-            sound_file = 'zapsplat_technology_cb_radio_male_says_abort_speaker_pov_57190.mp3'
-            _playsound(sound_file)
-            sys.exit(255)
-
+        GAME_URL = clipboard_text
+        card['back']['text'] = GAME_URL
 
 class UserInterface(HasTraits):
     '''The user's desktop.'''
@@ -159,7 +154,7 @@ class UserInterface(HasTraits):
         file_name = 'top-moves.png'
         top_moves = image_path / file_name
         x, y = pyautogui.locateCenterOnScreen(str(top_moves), confidence=0.75)
-        logger.debug(f"located top moves at {x},{y}")
+        logger.debug(f"toggling AI: located top moves at {x},{y}")
 
         pyautogui.click(x, y)
 
