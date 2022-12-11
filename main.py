@@ -30,7 +30,7 @@ sound_path = Path('sounds')
 image_path = Path('images')
 
 alert_milliseconds = SECONDS_FOR_COMPLETION_NOTIFICATION * 1000
-GAME_URL = None
+GAME_URL = "No game URL on clipboard..."
 
 def notify_completion():
     import pymsgbox
