@@ -36,11 +36,23 @@ BE AWARE: this opens up port 8765 on your local machine. I know of no security i
 On Windows, I prefer to use [Python from the Python software foundation](https://www.python.org/). 
 I had a brief run with Python from the Windows store as well as Chocolatey but neither worked so well.
 
+### Then install poetry and deps
+
+    shell> pip install poetry
+    shell> poetry install
+    shell> poetry shell
+    
+Then you can type `python main.py` to invoke the program. The program will then alt-tab to KaTrain
+and make a screenshot. Then it will click "top moves" and make another screenshot and then make a 
+flashcard.
+
+**You MUST have Anki up with Anki-connect for flashcards to work**
+
 ## Sound Effects
 
 you may not be able to get the camera sound effects (made when taking screenshots) to work on your platform.
 
-if so, set  `SOUND_EFFECTS` to `False` to turn them off. 
+if so, set  `SOUND_EFFECTS` to `False` in `main.py` to turn them off. 
 
 # Optional: build an executable
 
