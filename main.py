@@ -3,7 +3,6 @@
 import os
 import os.path
 import random
-import sys
 import tempfile
 import time
 from pathlib import Path
@@ -22,7 +21,7 @@ pyautogui.PAUSE = 0.2
 SOUND_EFFECTS = True
 DECK_NAME = 'flash-goban'
 TEMP_DIR = Path(tempfile.mkdtemp(prefix='flashcard-images'))
-SECONDS_FOR_COMPLETION_NOTIFICATION = 3
+SECONDS_FOR_COMPLETION_NOTIFICATION = 2
 
 logger.debug(f"{TEMP_DIR=}")
 
@@ -30,20 +29,25 @@ sound_path = Path('sounds')
 image_path = Path('images')
 
 alert_milliseconds = SECONDS_FOR_COMPLETION_NOTIFICATION * 1000
-GAME_URL = "No game URL on clipboard..."
+GAME_URL = "No game URL..."
 
 def notify_completion():
-    import pymsgbox
-
-
-    pymsgbox.alert(f"""Flashcard created ({GAME_URL})
-    
-    You are now a step closer to 1 dan!
-    
+    pymsgbox.alert(f"""Flashcard created. Game URL recorded as {GAME_URL})
+        
     Play. Review. Flash-goban. This is the path to shodan.
     
     Continue your study!
     """, timeout=alert_milliseconds)
+
+
+def press_top_moves_prompt():
+    pymsgbox.alert(f"""Front flashcard created. Now:
+    
+    1. (optional) Get the game URL on the clipboard.
+    2. Press "Top Moves" in the KaTrain dialogue.
+    3. Press 'OK' to continue, or meditate on the top move 
+    until the max 30 second delay is over.
+    """, timeout=30*1000)
 
 
 def play_reflect():
@@ -77,6 +81,13 @@ def play_camera_sound():
             """.split()
         sound = sound_path / (random.choice(sounds) + '.mp3')
         playsound(str(sound))
+
+
+def alt_tab():
+    pyautogui.keyDown('alt')
+    pyautogui.press('tab')
+    time.sleep(0.2)
+    pyautogui.keyUp('alt')
 
 
 def filename_from_url(url, append=None):
@@ -132,14 +143,9 @@ def perhaps_record_game_url(card):
         GAME_URL = clipboard_text
         card['back']['text'] = GAME_URL
 
+
 class UserInterface(HasTraits):
     '''The user's desktop.'''
-
-    def alt_tab(self):
-        pyautogui.keyDown('alt')
-        pyautogui.press('tab')
-        time.sleep(0.2)
-        pyautogui.keyUp('alt')
 
     def toggle_ai_by_key(self):
         # pressing 'e' does not work!
@@ -182,7 +188,6 @@ class UserInterface(HasTraits):
             }
         }
 
-        perhaps_record_game_url(card)
 
         for i, side in enumerate("front back".split()):
             tmp_name = f'{side}.png'
@@ -191,8 +196,9 @@ class UserInterface(HasTraits):
 
             logger.debug(_)
             take_screenshot(_)
-            self.toggle_ai()
-            # self.toggle_ai_by_key()
+            if side == 'front':
+                press_top_moves_prompt()
+                perhaps_record_game_url(card)
 
         try:
             os.sync()
@@ -220,7 +226,7 @@ class FlashGoban(Application):
 
     def start(self):
         self.ui.create_deck()
-        self.ui.alt_tab()
+        alt_tab()
         self.ui.make_flashcard()
 
 
