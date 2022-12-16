@@ -14,8 +14,20 @@ https://youtu.be/4B0VT44Aof4
 1. Open up a game in KaTrain
 1. Scroll through until you see a position where you could've done much better
 1. invoke Flash-Goban 
-1. A flashcard is made where the front of the flashcard is the game position with no move analysis and the back of the flashcard is the game position with move analysis
-1. **NOTE WELL**: If a URL is on the clipboard, then it will be added to the back of the flashcard....
+1. A flashcard is made where the front of the flashcard 
+is the game position with no move analysis and 
+the back of the flashcard is the game position with move analysis
+
+## A little more detail about taking the flashcards
+
+Originally, this application made the flashcard for the front and back
+automatically. However, [issues began to surface](https://github.com/metaperl/flash-goban/issues/1) 
+with pressing "Top Moves" in the KaTrain user interface. Therefore, even
+though flash-goban automatically makes the front of the flashcard, you
+(currently) must select "Top Moves" by clicking or pressing `e` manually.
+
+Thus, as of [this commit](https://github.com/metaperl/flash-goban/commit/fbaa1055f391fa834e926708fc80f25f3edab7d8)
+we are now manually making the flashcard for the back.
 
 # Installation
 
@@ -54,7 +66,7 @@ you may not be able to get the camera sound effects (made when taking screenshot
 
 if so, set  `SOUND_EFFECTS` to `False` in `main.py` to turn them off. 
 
-# Optional: build an executable
+## Optional: build an executable
 
 you may get tired of opening up a command shell, cd'ing to the repo and then invoking `python main.py` all the time.
 
@@ -83,9 +95,7 @@ without analysis and with analysis **and add the URL on the clipboard to the bac
 
 # Developer Guide
 
-## How to create the executable
-
-
+May the source be with you.
 
 # FAQ
 
