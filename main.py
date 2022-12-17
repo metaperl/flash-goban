@@ -1,11 +1,10 @@
 import os
 import os.path
+import platform
 import random
 import tempfile
 import time
 from pathlib import Path
-
-import platform
 
 import pyautogui
 import pymsgbox
@@ -35,7 +34,7 @@ logger.debug(f"{TEMP_DIR=}")
 sound_path = Path('sounds')
 image_path = Path('images')
 
-GAME_URL = "No game URL..."
+GAME_URL = None
 
 
 def notify_completion():
@@ -48,13 +47,21 @@ def notify_completion():
 
 
 def press_top_moves_prompt():
+    if not GAME_URL:
+        game_url_message = \
+            "There is no game URL currently on clipboard. You may copy the game url to the clipboard now."
+    else:
+        game_url_message = \
+            f"""Current game URL on clipboard is {GAME_URL}. If this is not correct, go ahead and copy the 
+            correct one to the clipboard"""
+
     pymsgbox.alert(f"""Front flashcard created. Now:
     
-    1. (optional) Get the game URL on the clipboard.
+    1. {game_url_message}
     2. Press "Top Moves" in the KaTrain dialogue.
     3. Press 'OK' to continue, or meditate on the top move 
     until the max 30 second delay is over.
-    """, timeout=30 * 1000)
+    """, timeout=seconds_to_milliseconds(30))
 
 
 def play_reflect():
@@ -81,19 +88,22 @@ def play_camera_sound():
     if SOUND_EFFECTS:
         from playsound import playsound
 
-        sounds = """camera-shutter-click-01 camera-shutter-click-03
-            camera-shutter-click-08 shutter-40453
-            camera-shutter-pentax-k20d-38609
-            analog-camera-shutter-96604
-            13658__ls__camera-click.mp3
-            541760__philliparthur__camera-mirror-flip-down.wav
-            541759__philliparthur__camera-mirror-flip-up.wav
-            13659__ls__camera2.mp3
-            656026__jacko4526__vintage-camera-shutter-firing.wav
-            64448__nicstage__cameraopen.wav
-            165689__paultjuh1984__powershot-g10-camera-on-open.wav
-            """.split()
-        sound = sound_path / (random.choice(sounds) + '.mp3')
+        sounds = """
+        camera-shutter-click-01.mp3 
+        camera-shutter-click-03.mp3
+        camera-shutter-click-08 shutter-40453.mp3
+        camera-shutter-pentax-k20d-38609.mp3
+        analog-camera-shutter-96604.mp3
+        13658__ls__camera-click.mp3
+        541760__philliparthur__camera-mirror-flip-down.wav
+        541759__philliparthur__camera-mirror-flip-up.wav
+        13659__ls__camera2.mp3
+        656026__jacko4526__vintage-camera-shutter-firing.wav
+        64448__nicstage__cameraopen.wav
+        165689__paultjuh1984__powershot-g10-camera-on-open.wav
+        """.split()
+
+        sound = sound_path / (random.choice(sounds))
         playsound(str(sound))
 
 
@@ -195,7 +205,7 @@ class UserInterface(HasTraits):
                 2. Have you installed the Anki-connect Flashcard plugin?
 
                 """
-            )
+                             )
 
     def make_flashcard(self):
         card = {
