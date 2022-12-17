@@ -10,7 +10,7 @@ SOUND_EFFECTS = True
 # After a flashcard is created, a cute little window pops up
 # notifying you of this. The window closes after N seconds,
 # where N is the number below
-SECONDS_FOR_COMPLETION_NOTIFICATION = 1
+SECONDS_FOR_COMPLETION_NOTIFICATION = 2
 
 
 # Creating the back of the flashcard requires selecting "Top Moves"
