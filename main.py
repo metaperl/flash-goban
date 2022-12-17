@@ -104,6 +104,7 @@ def play_camera_sound():
         """.split()
 
         sound = sound_path / (random.choice(sounds))
+        logger.debug("Playing sound " + sound)
         playsound(str(sound))
 
 
