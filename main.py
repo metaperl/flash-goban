@@ -91,7 +91,8 @@ def play_camera_sound():
         sounds = """
         camera-shutter-click-01.mp3 
         camera-shutter-click-03.mp3
-        camera-shutter-click-08 shutter-40453.mp3
+        camera-shutter-click-08.mp3
+        shutter-40453.mp3
         camera-shutter-pentax-k20d-38609.mp3
         analog-camera-shutter-96604.mp3
         13658__ls__camera-click.mp3
@@ -104,7 +105,7 @@ def play_camera_sound():
         """.split()
 
         sound = sound_path / (random.choice(sounds))
-        logger.debug("Playing sound " + sound)
+        logger.debug(f"Playing sound {sound}")
         playsound(str(sound))
 
 
