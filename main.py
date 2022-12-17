@@ -235,6 +235,7 @@ class UserInterface(HasTraits):
 
                 if cfg.MANUAL_BACK_OF_CARD:
                     press_top_moves_prompt()
+                    perhaps_record_game_url(card)
                 else:
                     press_letter_e()
 
