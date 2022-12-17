@@ -1,11 +1,11 @@
-# importing webdriver from selenium
-
 import os
 import os.path
 import random
 import tempfile
 import time
 from pathlib import Path
+
+import platform
 
 import pyautogui
 import pymsgbox
@@ -15,21 +15,28 @@ from traitlets import HasTraits, default
 from traitlets.config import Application
 
 import flash_goban.anki_connect
+import flash_goban.settings as cfg
 
-pyautogui.PAUSE = 0.2
+pyautogui.PAUSE = 0.1
 
-SOUND_EFFECTS = True
+SOUND_EFFECTS = cfg.SOUND_EFFECTS
 DECK_NAME = 'flash-goban'
 TEMP_DIR = Path(tempfile.mkdtemp(prefix='flashcard-images'))
-SECONDS_FOR_COMPLETION_NOTIFICATION = 2
+
+
+def seconds_to_milliseconds(s):
+    return s * 1000
+
+
+SECONDS_FOR_COMPLETION_NOTIFICATION = seconds_to_milliseconds(cfg.SECONDS_FOR_COMPLETION_NOTIFICATION)
 
 logger.debug(f"{TEMP_DIR=}")
 
 sound_path = Path('sounds')
 image_path = Path('images')
 
-alert_milliseconds = SECONDS_FOR_COMPLETION_NOTIFICATION * 1000
 GAME_URL = "No game URL..."
+
 
 def notify_completion():
     pymsgbox.alert(f"""Flashcard created. Game URL recorded as {GAME_URL})
@@ -37,7 +44,7 @@ def notify_completion():
     Play. Review. Flash-goban. This is the path to shodan.
     
     Continue your study!
-    """, timeout=alert_milliseconds)
+    """, timeout=SECONDS_FOR_COMPLETION_NOTIFICATION)
 
 
 def press_top_moves_prompt():
@@ -47,7 +54,7 @@ def press_top_moves_prompt():
     2. Press "Top Moves" in the KaTrain dialogue.
     3. Press 'OK' to continue, or meditate on the top move 
     until the max 30 second delay is over.
-    """, timeout=30*1000)
+    """, timeout=30 * 1000)
 
 
 def play_reflect():
@@ -78,6 +85,13 @@ def play_camera_sound():
             camera-shutter-click-08 shutter-40453
             camera-shutter-pentax-k20d-38609
             analog-camera-shutter-96604
+            13658__ls__camera-click.mp3
+            541760__philliparthur__camera-mirror-flip-down.wav
+            541759__philliparthur__camera-mirror-flip-up.wav
+            13659__ls__camera2.mp3
+            656026__jacko4526__vintage-camera-shutter-firing.wav
+            64448__nicstage__cameraopen.wav
+            165689__paultjuh1984__powershot-g10-camera-on-open.wav
             """.split()
         sound = sound_path / (random.choice(sounds) + '.mp3')
         playsound(str(sound))
@@ -88,6 +102,21 @@ def alt_tab():
     pyautogui.press('tab')
     time.sleep(0.2)
     pyautogui.keyUp('alt')
+
+
+def press_letter_e():
+    """Pressing the letter 'e' toggles 'Top Moves' in the KaTrain UI"""
+    # pressing 'e' does not work!
+    # pyautogui.press('e')
+    logger.debug("we are pressing 'e'")
+
+    if platform.system() == 'Windows':
+        import pydirectinput
+        pydirectinput.press('e')
+    else:
+        pyautogui.press('e')
+
+    logger.debug("we pressed 'e'!")
 
 
 def filename_from_url(url, append=None):
@@ -145,15 +174,7 @@ def perhaps_record_game_url(card):
 
 
 class UserInterface(HasTraits):
-    '''The user's desktop.'''
-
-    def toggle_ai_by_key(self):
-        # pressing 'e' does not work!
-        # pyautogui.press('e')
-        time.sleep(1)
-        logger.debug("we are pressing 'e'")
-        pyautogui.press('e')
-        logger.debug("we pressed 'e'!")
+    """The user's desktop."""
 
     def toggle_ai(self):
 
@@ -167,14 +188,14 @@ class UserInterface(HasTraits):
     def create_deck(self):
         try:
             flash_goban.anki_connect.create_deck(DECK_NAME)
-        except Exception as e:
+        except Exception:
             logger.exception(f"""
                 Could not create or connect to Anki software:
                 1. Is the Anki flashcard software running?
                 2. Have you installed the Anki-connect Flashcard plugin?
 
                 """
-                             )
+            )
 
     def make_flashcard(self):
         card = {
@@ -188,7 +209,6 @@ class UserInterface(HasTraits):
             }
         }
 
-
         for i, side in enumerate("front back".split()):
             tmp_name = f'{side}.png'
             _ = TEMP_DIR / tmp_name
@@ -196,9 +216,15 @@ class UserInterface(HasTraits):
 
             logger.debug(_)
             take_screenshot(_)
+            # If we just took the screenshot of the front, we now take the screenshot of the back
+            # manually or automatically based on the configuration setting:
             if side == 'front':
-                press_top_moves_prompt()
                 perhaps_record_game_url(card)
+
+                if cfg.MANUAL_BACK_OF_CARD:
+                    press_top_moves_prompt()
+                else:
+                    press_letter_e()
 
         try:
             os.sync()
