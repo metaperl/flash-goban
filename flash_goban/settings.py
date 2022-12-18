@@ -12,21 +12,24 @@ SOUND_EFFECTS = True
 # where N is the number below
 SECONDS_FOR_COMPLETION_NOTIFICATION = 2
 
+# The back of the flashcard contains
+# (1) a screenshot of the game position with top moves
+# (2) [optional] a URL to the game the position came from
 
-# Creating the back of the flashcard requires selecting "Top Moves"
-# from the KaTrain UI either via image recognition or by pressing the
-# letter 'e'. Both of these have proven problematic on Windows as
-# discussed here - https://github.com/metaperl/flash-goban/issues/1
-# and I dont know the status of other platforms because I dont have them.
+# If you set MANUAL_BACK_OF_CARD to False, then:
+# 1 - the screenshot will be taken of the back automatically
+# and pressing 'e' to select Top Moves may or may not work
+# as discussed here - https://github.com/metaperl/flash-goban/issues/1
+# 2 - you have an option to copy the game-url to the clipboard
 
-# There is a fix for Windows to allow automatic pressing of the letter 'e'
-# in a robust fashion, but I dont recommend it because then you dont get
-# the benefits of manual flashcard creation which are:
-# 1. you get reminded to copy the URL of the game you are watching to the clipboard
-# so you have a record of where the position came from
-# 2. You dont get a brief period to stare at the right answer as a form of memory improvement
+# If you set MANUAL_BACK_OF_CARD to True then:
+# 1 - You get prompted for copying the game Url to the clipboard
+# 2 - You may or may not be prompted to select Top Moves based on
+# the value of AUTOMATICALLY_SELECT_TOP_MOVES
 
-# That being said, manual flashcard creation is a PITA with a bunch of going here and
-# going there that you may not want to do. If you want to avoid the PITA, set to False
+# The default settings are what I like:
+# I get prompted to copy the game-url to the back of the flashcard
+# I dont have to fuss with selecting top moves manually.
 
 MANUAL_BACK_OF_CARD = True
+MANUAL_SELECT_TOP_MOVES = False

@@ -49,17 +49,24 @@ def notify_completion():
 def press_top_moves_prompt():
     if not GAME_URL:
         game_url_message = \
-            "There is no game URL currently on clipboard. You may copy the game url to the clipboard now."
+            """There is no game URL currently on clipboard. You may copy the game url to the clipboard now."""
     else:
         game_url_message = \
             f"""Current game URL on clipboard is {GAME_URL}. If this is not correct, go ahead and copy the 
             correct one to the clipboard"""
 
+    if cfg.MANUAL_SELECT_TOP_MOVES:
+        select_top_moves_message = "Go ahead and select top moves. I guess you like working hard."
+    else:
+        select_top_moves_message = \
+            "Make sure that the top moves are now highlighted. I tried my hardest to do it for you."
+
     pymsgbox.alert(f"""Front flashcard created. Now:
     
     1. {game_url_message}
-    2. Press "Top Moves" in the KaTrain dialogue.
-    3. Press 'OK' to continue, or meditate on the top move 
+    2. {select_top_moves_message}
+    3. Once the screen looks like what you want on the back of the flashcard (i.e. KaTrain is showing top moves), 
+    you may press 'OK' to continue, or meditate on the top move 
     until the max 30 second delay is over.
     """, timeout=seconds_to_milliseconds(30))
 
@@ -228,16 +235,18 @@ class UserInterface(HasTraits):
 
             logger.debug(_)
             take_screenshot(_)
+
             # If we just took the screenshot of the front, we now take the screenshot of the back
             # manually or automatically based on the configuration setting:
             if side == 'front':
                 perhaps_record_game_url(card)
 
+                if not cfg.MANUAL_SELECT_TOP_MOVES or not cfg.MANUAL_BACK_OF_CARD:
+                    press_letter_e()
+
                 if cfg.MANUAL_BACK_OF_CARD:
                     press_top_moves_prompt()
                     perhaps_record_game_url(card)
-                else:
-                    press_letter_e()
 
         try:
             os.sync()
