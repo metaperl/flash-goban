@@ -5,7 +5,7 @@ Settings to configure the behavior of Flash Goban
 # Should we make sound effects when taking screenshots and
 # indicating that a flashcard has been made?
 # If it doesnt work on your platform, then set to False
-SOUND_EFFECTS = True
+SOUND_EFFECTS = True  # False
 
 # After a flashcard is created, a cute little window pops up
 # notifying you of this. The window closes after N seconds,

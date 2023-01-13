@@ -1,22 +1,25 @@
 # Flash Goban
+*The poor man's AI Sensei*
 
-Make Anki flashcards from (KaTrain) goban positions
+Make Anki flashcards from (KaTrain) goban positions. 
+
 
 ![flash-goban4](https://user-images.githubusercontent.com/21293/190810634-b885e3a0-af1a-44e9-a2b1-f1018db7dc90.png)
 
 
 # How does it work?
 
-here is a video example - 
-https://youtu.be/4B0VT44Aof4
+Here is a video example - 
+https://www.youtube.com/watch?v=RrvmPVQRJPo
 
-1. Open up Anki (after proper installation, see below)
-2. Open up a game in KaTrain
-3. Scroll through until you see a position where you could've done much better
-4. invoke Flash-Goban 
-5. A flashcard is made where the front of the flashcard 
-is the game position with no move analysis and 
-the back of the flashcard is the game position with move analysis
+We will go into detail in the "Usage" section. For now, let's just say:
+
+1. Play a game
+2. Download the SGF
+3. Open up the SGF in KaTrain
+4. Find a position where you could improve
+5. Make a flashcard of the position
+6. Review your flashcards on a regular basis to improve.
 
 ## A little more detail about taking the flashcards
 
@@ -43,6 +46,8 @@ BE AWARE: this opens up port 8765 on your local machine. I know of no security i
 
 ## Clone this repo
 
+https://github.com/metaperl/flash-goban
+
 ## Install Python on your machine
 
 On Windows, I prefer to use [Python from the Python software foundation](https://www.python.org/). 
@@ -58,7 +63,8 @@ Then you can type `python main.py` to invoke the program. The program will then 
 and make a screenshot. Then it will click "top moves" and make another screenshot and then make a 
 flashcard.
 
-**You MUST have Anki up with Anki-connect for flashcards to work**
+You **MUST** have Anki up with Anki-connect for flashcards to 
+work.
 
 ## Sound Effects
 
@@ -68,7 +74,8 @@ if so, set  `SOUND_EFFECTS` to `False` in `flash_goban/settings.py` to turn them
 
 ## Configure the program
 
-You may or may not want to customize the execution of Flash-Goban in `flash_goban/settings.py`.
+You may or may not want to customize the execution of Flash-Goban in 
+`flash_goban/settings.py`.
 
 ## Optional: build an executable
 
@@ -91,6 +98,7 @@ here is a video of using the executable: https://youtu.be/tr42FXu1pe8
 2. Startup the Anki flashcard software
 3. Open up a shell
 4. change directory to the flash-goban cloned repo
+5. Type `poetry shell`
 5. Review a game in KaTrain, optionally copying the URL of the game to the clipboard
 (it will be added to the back of the card so that you can find the game later.)
 6. (in default mode) When you see a position you want to remember, ALT-TAB to Flash-Goban and invoke it... flash-goban will take a picture
