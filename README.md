@@ -10,7 +10,7 @@ Make Anki flashcards from (KaTrain) goban positions.
 # How does it work?
 
 Here is a video example - 
-https://www.youtube.com/watch?v=RrvmPVQRJPo
+https://rumble.com/v297lpq-flash-goban-a-tool-to-make-flashcards-of-your-katrain-goban-positions.html
 
 We will go into detail in the "Usage" section. For now, let's just say:
 
@@ -18,7 +18,7 @@ We will go into detail in the "Usage" section. For now, let's just say:
 2. Download the SGF
 3. Open up the SGF in KaTrain
 4. Find a position where you could improve
-5. Make a flashcard of the position
+5. Make a flashcard of the position(s)
 6. Review your flashcards on a regular basis to improve.
 
 ## A little more detail about taking the flashcards
