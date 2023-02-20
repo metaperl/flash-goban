@@ -75,13 +75,17 @@ def play_reflect():
     if SOUND_EFFECTS:
         from playsound import playsound
 
-        # sounds = """camera-shutter-click-01 camera-shutter-click-03
-        #     camera-shutter-click-08 shutter-40453
-        #     camera-shutter-pentax-k20d-38609
-        #     analog-camera-shutter-96604
-        #     """.split()
-        sound = sound_path / '177872__jorickhoofd__heavy-gong.wav'
-        playsound(str(sound))
+        sounds = """
+        108167__robinhood76__02111-screamy-applause.wav
+        277021__sandermotions__applause-2.wav
+        403057__vesperia94__hooray (1).wav
+        220691__pep_molina__woohoo.mp3
+        557126__melisandepope__manlyvoicealright.wav
+        368841__skyraevoicing__alright-we-did-it-female-cheer-for-games.mp3
+        46941__erh__i-s-alright-folks-f.wav
+        """
+
+        play_random_sound(sounds)
 
 
 def _playsound(filename):
@@ -90,6 +94,15 @@ def _playsound(filename):
         sound = sound_path / filename
         playsound(str(sound))
 
+def play_random_sound(sounds):
+    if SOUND_EFFECTS:
+        from playsound import playsound
+
+        sounds = sounds.split()
+
+        sound = sound_path / (random.choice(sounds))
+        logger.debug(f"Playing sound {sound}")
+        playsound(str(sound))
 
 def play_camera_sound():
     if SOUND_EFFECTS:
@@ -109,11 +122,9 @@ def play_camera_sound():
         656026__jacko4526__vintage-camera-shutter-firing.wav
         64448__nicstage__cameraopen.wav
         165689__paultjuh1984__powershot-g10-camera-on-open.wav
-        """.split()
+        """
 
-        sound = sound_path / (random.choice(sounds))
-        logger.debug(f"Playing sound {sound}")
-        playsound(str(sound))
+        play_random_sound(sounds)
 
 
 def alt_tab():
