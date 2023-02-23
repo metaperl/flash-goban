@@ -78,7 +78,7 @@ def play_reflect():
         sounds = """
         108167__robinhood76__02111-screamy-applause.wav
         277021__sandermotions__applause-2.wav
-        403057__vesperia94__hooray (1).wav
+        403057__vesperia94__hooray.wav
         220691__pep_molina__woohoo.mp3
         557126__melisandepope__manlyvoicealright.wav
         368841__skyraevoicing__alright-we-did-it-female-cheer-for-games.mp3
