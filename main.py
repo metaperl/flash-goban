@@ -83,6 +83,9 @@ def play_reflect():
         557126__melisandepope__manlyvoicealright.wav
         368841__skyraevoicing__alright-we-did-it-female-cheer-for-games.mp3
         46941__erh__i-s-alright-folks-f.wav
+        565888__dundalkkirk__announcer-win.wav
+        37215__simon_lacelle__ba-da-dum.wav
+        672707__bugradio__correct-winner.wav
         """
 
         play_random_sound(sounds)
