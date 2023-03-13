@@ -86,6 +86,8 @@ def play_reflect():
         565888__dundalkkirk__announcer-win.wav
         37215__simon_lacelle__ba-da-dum.wav
         672707__bugradio__correct-winner.wav
+        35036__dobroide__20070516goal02.wav
+        591572__chilsville__football.m4a
         """
 
         play_random_sound(sounds)
