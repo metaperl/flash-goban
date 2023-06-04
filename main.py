@@ -26,7 +26,7 @@ TEMP_DIR = Path(tempfile.mkdtemp(prefix='flashcard-images'))
 def seconds_to_milliseconds(s):
     return s * 1000
 
-
+SECONDS_TO_PROMPT_FOR_GAME_URL_COPY = 30
 SECONDS_FOR_COMPLETION_NOTIFICATION = seconds_to_milliseconds(cfg.SECONDS_FOR_COMPLETION_NOTIFICATION)
 
 logger.debug(f"{TEMP_DIR=}")
@@ -65,10 +65,12 @@ def press_top_moves_prompt():
     
     1. {game_url_message}
     2. {select_top_moves_message}
-    3. Once the screen looks like what you want on the back of the flashcard (i.e. KaTrain is showing top moves), 
-    you may press 'OK' to continue, or meditate on the top move 
-    until the max 30 second delay is over.
-    """, timeout=seconds_to_milliseconds(30))
+    3. After copying the game URL to the clipboard, alt-tab back to KaTrain so that it is the current window. 
+    Do not touch KaTrain because it is showing what you want on the back of the flashcard (i.e, the top moves).
+    Once this is done, you may press 'OK' to have flash-goban make the back of the flashard, or you may wish to 
+    wait until {SECONDS_TO_PROMPT_FOR_GAME_URL_COPY} have elapsed, at which time flash-goban will automatically
+    make the back of the flashcard and close down this window.
+    """, timeout=seconds_to_milliseconds(SECONDS_TO_PROMPT_FOR_GAME_URL_COPY))
 
 
 def play_reflect():
