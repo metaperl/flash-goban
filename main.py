@@ -26,15 +26,27 @@ TEMP_DIR = Path(tempfile.mkdtemp(prefix='flashcard-images'))
 def seconds_to_milliseconds(s):
     return s * 1000
 
+
 SECONDS_TO_PROMPT_FOR_GAME_URL_COPY = 30
 SECONDS_FOR_COMPLETION_NOTIFICATION = seconds_to_milliseconds(cfg.SECONDS_FOR_COMPLETION_NOTIFICATION)
 
 logger.debug(f"{TEMP_DIR=}")
 
-sound_path = Path('sounds')
-image_path = Path('images')
+SOUND_PATH = Path('sounds')
+CAMERA_CLICK_SOUNDS = SOUND_PATH / 'camera_click'
+SUCCESS_SOUNDS = SOUND_PATH / 'success'
+
+IMAGE_PATH = Path('images')
 
 GAME_URL = None
+
+
+def random_file_from(p: Path):
+    """Choose a random file from path."""
+
+    options = list(p.iterdir())
+    _ = random.choice(options)
+    return _
 
 
 def notify_completion():
@@ -52,8 +64,8 @@ def press_top_moves_prompt():
             """There is no game URL currently on clipboard. You may copy the game url to the clipboard now."""
     else:
         game_url_message = \
-            f"""Current game URL on clipboard is {GAME_URL}. If this is not correct, go ahead and copy the 
-            correct one to the clipboard"""
+            f"""Current game URL on clipboard is {GAME_URL}. If this is not correct, go ahead and copy the correct 
+            one to the clipboard """
 
     if cfg.MANUAL_SELECT_TOP_MOVES:
         select_top_moves_message = "Go ahead and select top moves. I guess you like working hard."
@@ -75,31 +87,15 @@ def press_top_moves_prompt():
 
 def play_reflect():
     if SOUND_EFFECTS:
-        from playsound import playsound
-
-        sounds = """
-        108167__robinhood76__02111-screamy-applause.wav
-        277021__sandermotions__applause-2.wav
-        403057__vesperia94__hooray.wav
-        220691__pep_molina__woohoo.mp3
-        557126__melisandepope__manlyvoicealright.wav
-        368841__skyraevoicing__alright-we-did-it-female-cheer-for-games.mp3
-        46941__erh__i-s-alright-folks-f.wav
-        565888__dundalkkirk__announcer-win.wav
-        37215__simon_lacelle__ba-da-dum.wav
-        672707__bugradio__correct-winner.wav
-        35036__dobroide__20070516goal02.wav
-        591572__chilsville__football.m4a
-        """
-
-        play_random_sound(sounds)
+        play_random_sound_from(SOUND_EFFECTS)
 
 
 def _playsound(filename):
     if SOUND_EFFECTS:
         from playsound import playsound
-        sound = sound_path / filename
+        sound = SOUND_PATH / filename
         playsound(str(sound))
+
 
 def play_random_sound(sounds):
     if SOUND_EFFECTS:
@@ -107,31 +103,23 @@ def play_random_sound(sounds):
 
         sounds = sounds.split()
 
-        sound = sound_path / (random.choice(sounds))
+        sound = SOUND_PATH / (random.choice(sounds))
         logger.debug(f"Playing sound {sound}")
         playsound(str(sound))
 
-def play_camera_sound():
+
+def play_random_sound_from(p: Path):
     if SOUND_EFFECTS:
         from playsound import playsound
 
-        sounds = """
-        camera-shutter-click-01.mp3 
-        camera-shutter-click-03.mp3
-        camera-shutter-click-08.mp3
-        shutter-40453.mp3
-        camera-shutter-pentax-k20d-38609.mp3
-        analog-camera-shutter-96604.mp3
-        13658__ls__camera-click.mp3
-        541760__philliparthur__camera-mirror-flip-down.wav
-        541759__philliparthur__camera-mirror-flip-up.wav
-        13659__ls__camera2.mp3
-        656026__jacko4526__vintage-camera-shutter-firing.wav
-        64448__nicstage__cameraopen.wav
-        165689__paultjuh1984__powershot-g10-camera-on-open.wav
-        """
+        sound = random_file_from(p)
 
-        play_random_sound(sounds)
+        playsound(str(sound))
+
+
+def play_camera_sound():
+    if SOUND_EFFECTS:
+        play_random_sound_from(CAMERA_CLICK_SOUNDS)
 
 
 def alt_tab():
@@ -216,7 +204,7 @@ class UserInterface(HasTraits):
     def toggle_ai(self):
 
         file_name = 'top-moves.png'
-        top_moves = image_path / file_name
+        top_moves = IMAGE_PATH / file_name
         x, y = pyautogui.locateCenterOnScreen(str(top_moves), confidence=0.75)
         logger.debug(f"toggling AI: located top moves at {x},{y}")
 

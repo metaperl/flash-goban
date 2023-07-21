@@ -123,6 +123,11 @@ Make Anki flashcards from Online-Go.com goban positions - https://github.com/met
 
 # Acknowledgements
 
+Sound Effects came many places:
+
+* from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=6713") is awesome
+* FreeSounds is awesome too
+
 "Abort sound" came from Zapsplat.com
 
 # Contact
