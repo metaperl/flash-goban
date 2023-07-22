@@ -87,7 +87,7 @@ def press_top_moves_prompt():
 
 def play_reflect():
     if SOUND_EFFECTS:
-        play_random_sound_from(SOUND_EFFECTS)
+        play_random_sound_from(SUCCESS_SOUNDS)
 
 
 def _playsound(filename):
