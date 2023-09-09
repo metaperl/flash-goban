@@ -86,7 +86,7 @@ in this case, you can create an executable as follows:
     pip install pyinstaller
     pyinstaller make-exe.spec
 
-Then you will find an executable in `$repo/dist/main` that you can put a shortcut on your desktop to so that you can invoke in one-click.
+Then you will find an executable named `main.exe` in `$repo/dist/main`. I like to right-click on this executable and then choose "Pin to Taskbar" so I can pin it to the taskbar.
 
 Because flash-goban finds the kaTrain window by using Alt-TAB, just make sure to have the katrain window up when you click on the icon for your executable.
 
