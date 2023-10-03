@@ -53,11 +53,10 @@ https://github.com/metaperl/flash-goban
 On Windows, I prefer to use [Python from the Python software foundation](https://www.python.org/). 
 I had a brief run with Python from the Windows store as well as Chocolatey but neither worked so well.
 
-### Then install poetry and deps
+### Install the things in requirements.txt
 
-    shell> pip install poetry
-    shell> poetry install
-    shell> poetry shell
+    shell> pip install -r requirements.txt
+
     
 Then you can type `python main.py` to invoke the program. The program will then alt-tab to KaTrain
 and make a screenshot. Then it will click "top moves" and make another screenshot and then make a 
@@ -98,7 +97,7 @@ here is a video of using the executable: https://youtu.be/tr42FXu1pe8
 2. Startup the Anki flashcard software
 3. Open up a shell
 4. change directory to the flash-goban cloned repo
-5. Type `poetry shell`
+5. Type `python main.py`
 5. Review a game in KaTrain, optionally copying the URL of the game to the clipboard
 (it will be added to the back of the card so that you can find the game later.)
 6. (in default mode) When you see a position you want to remember, ALT-TAB to Flash-Goban and invoke it... flash-goban will take a picture

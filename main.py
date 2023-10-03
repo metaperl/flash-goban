@@ -6,6 +6,7 @@ import tempfile
 import time
 from pathlib import Path
 
+
 import pyautogui
 import pymsgbox
 import pyperclip
@@ -32,7 +33,12 @@ SECONDS_FOR_COMPLETION_NOTIFICATION = seconds_to_milliseconds(cfg.SECONDS_FOR_CO
 
 logger.debug(f"{TEMP_DIR=}")
 
-SOUND_PATH = Path('sounds')
+
+def get_assets_dir() -> Path:
+    filename = __loader__.get_filename()
+    return Path(filename).parent / 'sounds'
+
+SOUND_PATH = get_assets_dir()
 CAMERA_CLICK_SOUNDS = SOUND_PATH / 'camera_click'
 SUCCESS_SOUNDS = SOUND_PATH / 'success'
 
@@ -110,11 +116,13 @@ def play_random_sound(sounds):
 
 def play_random_sound_from(p: Path):
     if SOUND_EFFECTS:
-        from playsound import playsound
+        # from playsound import playsound
+        from play_sounds import play_file
 
         sound = random_file_from(p)
+        print(f"Type of random sound file = {type(sound)}")
 
-        playsound(str(sound))
+        play_file(sound)
 
 
 def play_camera_sound():

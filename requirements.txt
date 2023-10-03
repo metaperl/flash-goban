@@ -1,0 +1,8 @@
+playsound==1.2.2
+play_sounds
+pyautogui
+pymsgbox
+pyperclip
+pydirectinput
+traitlets
+loguru
