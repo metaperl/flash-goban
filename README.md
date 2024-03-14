@@ -44,6 +44,8 @@ https://github.com/FooSoft/anki-connect#installation
 
 BE AWARE: this opens up port 8765 on your local machine. I know of no security issues but CAVEAT EMPTOR.
 
+**UPDATE** - new URL for anki connect - https://git.foosoft.net/alex/anki-connect
+
 ## Clone this repo
 
 https://github.com/metaperl/flash-goban

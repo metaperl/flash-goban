@@ -17,6 +17,8 @@ pyperclip = "*"
 pymsgbox = "*"
 ogsapi = "*"
 yapf = "*"
+pydirectinput = "*"
+play-sounds = "*"
 
 [dev-packages]
 

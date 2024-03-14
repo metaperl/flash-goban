@@ -203,7 +203,9 @@ def perhaps_record_game_url(card):
     logger.debug(f"clipboard text={clipboard_text}")
     if clipboard_text.startswith('http'):
         GAME_URL = clipboard_text
-        card['back']['text'] = GAME_URL
+        card_back_text = f'<a href="{GAME_URL}">{GAME_URL}</a>'
+        logger.debug(f"{card_back_text=}")
+        card['back']['text'] = card_back_text
 
 
 class UserInterface(HasTraits):
