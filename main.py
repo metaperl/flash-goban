@@ -250,6 +250,15 @@ class UserInterface(HasTraits):
             card[side]['image'] = _
 
             logger.debug(_)
+
+            # Because press_top_moves_prompt() will not close the window quick enough
+            # the back of the card may still have that prompt up when the screenshot
+            # is taken if the user did not press "OK"
+            if side == 'front':
+                pass
+            else:
+                time.sleep(2)
+
             take_screenshot(_)
 
             # If we just took the screenshot of the front, we now take the screenshot of the back
